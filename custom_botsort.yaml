@@ -1,0 +1,24 @@
+# Ultralytics BoT-SORT config — tuned for door entrance monitoring
+# BoT-SORT uses Kalman Filter (motion prediction) + Hungarian Algorithm (assignment)
+
+tracker_type: botsort
+
+# --- Detection Thresholds ---
+track_high_thresh: 0.4     # High threshold for first-pass association
+track_low_thresh: 0.1      # Low threshold for second-pass association
+new_track_thresh: 0.5      # Threshold for creating new tracks
+
+# --- Track Lifecycle ---
+track_buffer: 60           # Frames to keep lost tracks alive (default 30)
+                           # Higher = better re-ID after door occlusion
+match_thresh: 0.85         # IoU matching threshold
+fuse_score: true           # Fuse confidence score into cost matrix
+
+# --- Global Motion Compensation ---
+gmc_method: sparseOptFlow  # sparseOptFlow|orb|sift|ecc|none
+
+# --- ReID ---
+proximity_thresh: 0.5      # Min IoU for ReID consideration
+appearance_thresh: 0.8     # Min appearance similarity for ReID
+with_reid: false            # Disable ReID model (not needed for this use case)
+model: auto                # ReID model path (auto = use detector features)
